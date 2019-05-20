@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/themes/prism.min.css">
+
+    <title>Bootstrap Typeahead</title>
+
+    <style>
+        h1{ margin-top: 80px; }
+        h2,h3{ margin-top: 40px; }
+        .example{ border: 4px solid #eee; margin-bottom:30px;}
+        .example-preview{ padding: 1.5rem; }
+        .example > pre{ border-top: 4px solid #eee;margin:0; }
+        .example-static{
+            position: relative;
+            height: 500px;
+            background-color: #eee;
+        }
+        .drawer-static{ position: absolute; height: 100%; z-index: 1000; display:block;}
+        .highlihgt-grid .row + .row{ margin-top: 1rem;}
+        .highlihgt-grid [class^="col-"]{
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            background-color: rgba(86,61,124,.15);
+            border: 1px solid rgba(86,61,124,.2);
+        }
+    </style>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-1746437125043617",
+              enable_page_level_ads: true
+         });
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <a class="navbar-brand" href="#">Bootstrap Typeahead</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarSupportedContent" data-toggle="collapse" type="button"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/iqbalfn/bootstrap-typeahead">Github</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/iqbalfn/bootstrap-typeahead/releases">Download</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h1>Typeahead</h1>
+                <p class="lead">The UI component of typeahead.js is available as a jQuery plugin. It's responsible for rendering suggestions and handling DOM interactions.</p>
+
+                <p>This project is actually Bootstrap 4 version of twitter <a href="https://github.com/twitter/typeahead.js/">typeahead.js</a> which already has everything we need to build simple typeahead. For complete documentation and example, please refer to the documentation of twitter typeahead.js it self.</p>
+
+                <p><strong>Important!</strong> <code>bloodhound</code> is not included. If you need it, please include it manually.</p>
+
+                <section>
+                    <h2>Examples</h2>
+                    <article>
+                        <section>
+                            <h3>Default</h3>
+
+                            <article>
+                                <p>This is the only example we have for this component. For more information and example please refer to original twitter project.</p>
+
+                                <div class="example">
+                                    <div class="example-preview">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="field-state" placeholder="State">
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function(){
+                                                var substringMatcher = function(strs) {
+                                                    return function findMatches(q, cb) {
+                                                        var matches, substringRegex;
+                                                        matches = [];
+                                                        
+                                                        substrRegex = new RegExp(q, 'i');
+                                                        
+                                                        $.each(strs, function(i, str) {
+                                                            if (substrRegex.test(str))
+                                                                matches.push(str);
+                                                        })
+
+                                                        cb(matches);
+                                                    }
+                                                }
+
+                                                var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+                                                      'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+                                                      'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+                                                      'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+                                                      'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+                                                      'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+                                                      'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+                                                      'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+                                                      'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+                                                    ];
+
+                                                $('#field-state').typeahead(
+                                                    {
+                                                        hint: true,
+                                                        highlight: true,
+                                                        minLength: 1,
+                                                    },
+                                                    {
+                                                        name: 'state',
+                                                        source: substringMatcher(states)
+                                                    })
+                                            })
+                                        </script>
+                                    </div>
+                                    <pre><code class="language-html">
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;field-state&quot; placeholder=&quot;State&quot;&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+document.addEventListener('DOMContentLoaded', function(){
+    var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+            var matches, substringRegex;
+            matches = [];
+            
+            substrRegex = new RegExp(q, 'i');
+            
+            $.each(strs, function(i, str) {
+                if (substrRegex.test(str))
+                    matches.push(str);
+            })
+
+            cb(matches);
+        }
+    }
+
+    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+    ];
+
+    $('#field-state').typeahead(
+    {
+        hint: true,
+        highlight: true,
+        minLength: 1,
+    },
+    {
+        name: 'state',
+        source: substringMatcher(states)
+    })
+})
+&lt;/script&gt;
+                                    </code></pre>
+                                </div>
+                            </article>
+                        </section>
+                    </article>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.16.0/prism.min.js" data-manual></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+    <script>
+        $('[class^="language"]').each(function(i,e){
+            e.innerHTML = e.innerHTML.trim();
+            Prism.highlightElement(e);
+        });
+    </script>
+</body>
+</html>
